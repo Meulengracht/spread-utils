@@ -27,7 +27,7 @@ lxc stop $INSTANCE_NAME
 # can match the image
 lxc publish $INSTANCE_NAME --alias ucspread
 lxc image show ucspread > temp.profile
-yq e '.properties.aliases = "ucspread"' -i ./temp.profile
+yq e '.properties.aliases = "ucspread,amd64"' -i ./temp.profile
 yq e '.properties.remote = "images"' -i ./temp.profile
 cat ./temp.profile | lxc image edit ucspread
 
