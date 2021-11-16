@@ -6,9 +6,10 @@ INSTANCE_NAME=spread-test
 lxc launch ubuntu:20.04 $INSTANCE_NAME
 
 # wait a few seconds before proceeding, otherwise we are going to have issues
-# with the container (network manager) not being ready yet, and then the rest of
+# with the container (systemd) not being ready yet, and then the rest of
 # the commands will fail
 sleep 5s
+lxc exec $INSTANCE_NAME -- bash -c 'systemctl is-system-running --wait'
 
 # we build libtpms and swptm from source and preinstall that in the image for TPM emulation support
 lxc exec $INSTANCE_NAME -- bash -c "apt update -yqq"
